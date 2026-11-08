@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>贷款申请单 · 在线填写 | 信贷自动风控多Agent系统</title>
+  <link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body class="app-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main-area">
+  <header class="app-header" id="appHeader"></header>
+  <div class="form-wrap">
+    <form id="appForm" novalidate>
+
+      <!-- ① 贷款申请 -->
+      <section class="panel form-section">
+        <h2>① 贷款申请</h2>
+        <div class="field-grid">
+          <label class="field">申请渠道
+            <select name="channel">
+              <option value="APP" selected>APP</option>
+              <option value="H5">H5</option>
+              <option value="API网关">API网关</option>
+              <option value="渠道合作方">渠道合作方</option>
+              <option value="线下网点">线下网点</option>
+            </select>
+          </label>
+          <label class="field">申请金额（元）
+            <input type="number" name="amount" value="150000" min="1000" max="500000"
+                   step="1000" required>
+          </label>
+          <label class="field">借款期限（月）
+            <input type="number" name="term_months" value="12" min="3" max="60" required>
+          </label>
+          <label class="field">资金用途
+            <select name="purpose" id="fPurpose">
+              <option value="消费" selected>消费</option>
+              <option value="教育">教育</option>
+              <option value="医疗">医疗</option>
+              <option value="装修">装修</option>
+              <option value="旅游">旅游</option>
+              <option value="经营">经营</option>
+              <option value="其他">其他</option>
+            </select>
+          </label>
+          <label class="field span-2">用途说明（用途为「其他/经营」时建议填写）
+            <input type="text" name="memo" id="fMemo"
+                   placeholder="如：家庭装修支出 / 门店进货周转（注意：填写股票/购房等将触发合规一票否决）">
+          </label>
+        </div>
+      </section>
+
+      <!-- ② 申请人信息 -->
+      <section class="panel form-section">
+        <h2>② 申请人信息</h2>
+        <label class="checkbox-row">
+          <input type="checkbox" id="demoIdentity" checked>
+          <span>使用演示身份（演示模式：三要素核验走内置注册表，勾选可通过核验并自动审批；取消勾选可自定义身份测试核验拒绝流程）</span>
+        </label>
+        <div class="field-grid">
+          <label class="field">姓名 <input type="text" name="name" id="fName" required></label>
+          <label class="field">身份证号 <input type="text" name="id_number" id="fIdNumber"
+              maxlength="18" required placeholder="18位身份证号"></label>
+          <label class="field">手机号 <input type="tel" name="phone" id="fPhone"
+              maxlength="11" required placeholder="11位手机号"></label>
+          <label class="field">出生日期 <input type="date" name="birthday" id="fBirthday"
+              value="1995-03-12" required></label>
+          <label class="field">性别
+            <select name="gender"><option>男</option><option>女</option><option>未知</option></select>
+          </label>
+          <label class="field">学历
+            <select name="education">
+              <option>硕士及以上</option><option selected>本科</option><option>大专</option>
+              <option>高中</option><option>中专及以下</option>
+            </select>
+          </label>
+          <label class="field">婚姻状况
+            <select name="marital_status">
+              <option selected>已婚</option><option>未婚</option><option>离异</option><option>丧偶</option>
+            </select>
+          </label>
+          <label class="field">居住状况
+            <select name="housing_status">
+              <option>自有</option><option selected>按揭</option><option>租房</option><option>其他</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <!-- ③ 职业与收入 -->
+      <section class="panel form-section">
+        <h2>③ 职业与收入</h2>
+        <div class="field-grid">
+          <label class="field">就业类型
+            <select name="employment_type">
+              <option selected>全职</option><option>个体经营</option><option>合同工</option>
+              <option>退休</option><option>其他</option>
+            </select>
+          </label>
+          <label class="field">工作单位
+            <input type="text" name="employer" value="星辰互联网科技有限公司" required>
+          </label>
+          <label class="field">职位 <input type="text" name="job_title" value="产品经理"></label>
+          <label class="field">工作年限（年）
+            <input type="number" name="work_years" value="3" min="0" max="50">
+          </label>
+          <label class="field">月收入（元）
+            <input type="number" name="monthly_income" value="30000" min="0" step="1000" required>
+          </label>
+          <label class="field">收入证明类型
+            <select name="income_evidence">
+              <option selected>银行流水</option><option>工资单</option><option>税单</option><option>自报</option>
+            </select>
+          </label>
+          <label class="field">手机号注册时长（月）
+            <input type="number" name="phone_registration_months" value="48" min="0">
+          </label>
+        </div>
+      </section>
+
+      <!-- ④ 联系与居住 -->
+      <section class="panel form-section">
+        <h2>④ 联系与居住</h2>
+        <div class="field-grid">
+          <label class="field span-2">居住地址
+            <input type="text" name="residential_address" value="北京市朝阳区望京街道">
+          </label>
+          <label class="field">常住城市
+            <input type="text" name="resident_city" value="北京">
+          </label>
+        </div>
+      </section>
+
+      <!-- ⑤ 设备信息 -->
+      <section class="panel form-section">
+        <h2>⑤ 设备信息</h2>
+        <div class="field-grid">
+          <label class="field">设备品牌 <input type="text" name="brand" value="Apple"></label>
+          <label class="field">设备型号 <input type="text" name="model" value="iPhone 15"></label>
+          <label class="field">操作系统 <input type="text" name="os" value="iOS 17"></label>
+          <label class="field">IP 地址 <input type="text" name="ip" value="114.240.1.10"></label>
+          <label class="field">IP 归属城市 <input type="text" name="ip_city" value="北京"></label>
+          <label class="field">设备首次出现（天前）
+            <input type="number" name="first_seen_days" value="600" min="0">
+          </label>
+          <label class="field">设备关联账户数
+            <input type="number" name="account_count" value="2" min="1" max="20">
+          </label>
+          <label class="field">SIM 卡数
+            <input type="number" name="sim_count" value="1" min="1" max="10">
+          </label>
+        </div>
+        <div class="risk-row">
+          <span class="risk-title">设备风险信号（勾选可模拟风险设备，触发反欺诈规则）：</span>
+          <label class="checkbox-row inline"><input type="checkbox" name="is_rooted"> 已ROOT/越狱</label>
+          <label class="checkbox-row inline"><input type="checkbox" name="is_emulator"> 模拟器环境</label>
+          <label class="checkbox-row inline"><input type="checkbox" name="is_proxy"> 代理/VPN</label>
+        </div>
+      </section>
+
+      <!-- ⑥ 影像资料 -->
+      <section class="panel form-section">
+        <h2>⑥ 影像资料（勾选已上传的资料）</h2>
+        <div class="docs-grid">
+          <label class="checkbox-row"><input type="checkbox" name="docs" value="身份证正面" checked> 身份证正面</label>
+          <label class="checkbox-row"><input type="checkbox" name="docs" value="身份证反面" checked> 身份证反面</label>
+          <label class="checkbox-row"><input type="checkbox" name="docs" value="收入证明" checked> 收入证明</label>
+          <label class="checkbox-row"><input type="checkbox" name="docs" value="人脸核身视频" checked> 人脸核身视频</label>
+          <label class="checkbox-row"><input type="checkbox" name="docs" value="居住证明"> 居住证明</label>
+          <label class="checkbox-row"><input type="checkbox" name="docs" value="营业执照"> 营业执照（经营贷须提供）</label>
+        </div>
+        <p class="hint">提示：缺少「收入证明」将触发补件流程；经营用途缺少「营业执照」将提示补充。</p>
+      </section>
+
+      <div class="submit-bar panel">
+        <button type="submit" class="primary-btn big" id="submitBtn">提交申请单</button>
+        <button type="button" class="ghost-btn" id="resetBtn">重置表单</button>
+        <span class="hint">提交后系统异步受理，自动跳转监控台实时跟踪审批进度</span>
+      </div>
+    </form>
+  </div>
+
+  <footer class="footer">
+    提交后流程：受理 → 进件审核 → 反欺诈 → 信用评估 → 审批决策 → 合规审计 → 贷后管理 → 决策总控
+    ｜ 三层兜底：LLM推理 → 规则引擎 → 默认兜底
+  </footer>
+  </main>
+
+  <script src="/frontend/nav.js"></script>
+  <script src="/frontend/submit.js"></script>
+</body>
+</html>

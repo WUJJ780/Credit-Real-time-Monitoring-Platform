@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信贷自动风控多Agent系统 · 实时监控台</title>
+  <link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body class="app-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main-area">
+  <header class="app-header" id="appHeader"></header>
+  <div class="layout">
+    <!-- ============ 左侧：受理面板 ============ -->
+    <aside class="panel submit-panel">
+      <h2>① 受理申请</h2>
+
+      <section class="block">
+        <h3>演示案例</h3>
+        <p class="hint">5个案例覆盖全部流程分支（点击即受理）</p>
+        <div class="case-grid" id="caseButtons">
+          <button class="case-btn" data-case="normal">✅ 优质客户<span class="tag">自动通过</span></button>
+          <button class="case-btn" data-case="fraud">❌ 欺诈团伙<span class="tag">自动拒绝</span></button>
+          <button class="case-btn" data-case="review">⏸ 高风险<span class="tag">人工复核</span></button>
+          <button class="case-btn" data-case="supplement">📋 资料缺失<span class="tag">补件</span></button>
+          <button class="case-btn" data-case="compliance">⚖ 用途违规<span class="tag">合规否决</span></button>
+        </div>
+      </section>
+
+      <section class="block">
+        <h3>批量模拟高并发</h3>
+        <p class="hint">生成独立变体申请并发受理，实测流水线吞吐</p>
+        <div class="batch-row">
+          <input type="number" id="batchTimes" value="50" min="1" max="500"
+                 aria-label="批量笔数">
+          <button class="primary-btn" id="batchBtn">发起批量受理</button>
+        </div>
+      </section>
+
+      <section class="block">
+        <h3>我提交申请单</h3>
+        <p class="hint">填写完整贷款申请表单，模拟真实客户进件，提交后实时跟踪审批进度</p>
+        <a class="primary-btn wide submit-link" href="/submit">📝 填写申请单</a>
+      </section>
+    </aside>
+
+    <!-- ============ 右侧：统计 + 监控 ============ -->
+    <section class="main-col">
+      <h2 class="visually-hidden">运行统计</h2>
+      <div class="kpi-grid" id="kpiGrid" aria-live="polite"></div>
+
+      <div class="panel dist-panel">
+        <h3>决策分布 <span class="hint" id="distTotal"></span></h3>
+        <div class="dist-bars" id="distBars" aria-live="polite"></div>
+      </div>
+
+      <div class="panel apps-panel">
+        <div class="apps-head">
+          <h3>申请实时监控</h3>
+          <span class="hint" id="appsCount"></span>
+        </div>
+        <div id="appList" aria-live="polite"></div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    受理 → 进件审核 → 反欺诈 → 信用评估 → 审批决策 → 合规审计 → 贷后管理 → 决策总控
+    ｜ 三层兜底：LLM推理 → 规则引擎 → 默认兜底 ｜ 决策与审计链可追溯
+  </footer>
+  </main>
+
+  <script src="/frontend/nav.js"></script>
+  <script src="/frontend/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+# -*- coding: utf-8 -*-
+# =====================================================================
+# 信贷自动风控多Agent系统 —— 完整依赖清单
+# Python=3.12.4（受 pydantic/langgraph/langchain-core 约束），推荐 3.10 ~ 3.12
+# 全部依赖以 == 精确锁定为实测可用版本，保证一键复现构建环境：
+#     python -m venv .venv
+#     pip install -r requirements.txt
+# 清单包含：直接依赖（按模块分组注释） + 全部传递依赖（锁定实测版本），
+# 由 pip freeze 生成（2026-11-06），与演示环境完全一致。
+# =====================================================================
+
+# ================= 核心框架（LangGraph多Agent编排 + LLM） =================
+langgraph==0.6.11                 # 多Agent编排框架（同步图+异步图）
+langgraph-checkpoint==3.0.1       # 检查点（中断恢复resume）
+langgraph-prebuilt==0.6.5         # 预构建图组件
+langgraph-sdk==0.2.15             # LangGraph SDK
+langchain-core==0.3.86            # LangChain核心（消息/结构化输出）
+langchain-openai==0.3.35          # OpenAI兼容LLM客户端（DeepSeek/Qwen/OpenAI等，.env.local配置）
+openai==2.54.0                    # OpenAI SDK（langchain-openai底层）
+
+# ================= 数据模型与配置 =================
+pydantic==2.14.2                  # Agent之间Pydantic结构化输出
+pydantic_core==2.50.2             # Pydantic底层引擎（锁定与2.14.2配套版本）
+python-dotenv==1.2.4              # .env.local环境配置加载
+
+# ================= 异步高并发服务 =================
+fastapi==0.115.6                  # 异步HTTP服务框架（/api/v1 + 演示前端托管）
+uvicorn==0.32.1                   # ASGI服务器（高并发入口: python server.py）
+starlette==0.41.3                 # FastAPI底层ASGI框架
+
+# ================= 数据能力层（可选依赖，未启用时自动Mock降级） =================
+kafka-python==3.0.12              # Agent通讯（Kafka消息总线）
+PyMySQL==1.2.3                    # MySQL（征信/黑名单/进件数据，真实模式走连接池）
+neo4j==6.4.1                      # Neo4j（反欺诈知识图谱）
+pymilvus==3.0.2                   # Milvus（历史欺诈案件向量检索）
+minio==7.2.20                     # MinIO（影像/审计文件存储）
+httpx==0.28.1                     # 百度OCR等HTTP调用 + 压测脚本AsyncClient
+
+# =====================================================================
+# 以下为全部传递依赖（由直接依赖自动解析安装），以 == 锁定实测版本，
+# 保证与已验证的演示环境字节级一致，避免新版本引入兼容性问题。
+# =====================================================================
+
+# ---- langgraph/langchain 生态 ----
+PyYAML==6.0.3                     # YAML解析（langgraph配置）
+langsmith==0.14.17                # LangChain可观测性客户端
+tiktoken==0.14.0                  # OpenAI tokenizer
+tenacity==9.2.1                   # 重试库（LLM调用重试）
+orjson==3.13.0                    # 高性能JSON序列化
+ormsgpack==1.13.0                 # MessagePack序列化（langgraph检查点）
+uuid_utils==0.19.0                # UUID7（langgraph事件ID）
+zstandard==0.25.0                 # zstd压缩（langgraph检查点）
+jsonpatch==1.42                   # JSON Patch（langgraph状态更新）
+jsonpointer==3.8                  # JSON Pointer
+regex==2026.9.29                  # 增强正则（tiktoken依赖）
+
+# ---- HTTP / 网络 ----
+anyio==4.16.0                     # 异步IO抽象层（fastapi/httpx底层）
+httpcore==1.0.9                   # httpx 0.28底层
+httpcore2==2.16.0                 # 新版httpcore（openai 2.54依赖）
+httpx2==2.16.0                    # 新版httpx（openai 2.54依赖）
+h11==0.16.0                       # HTTP/1.1实现
+sniffio==1.3.1                    # 异步库探测
+websockets==17.4                  # uvicorn WebSocket支持
+urllib3==2.8.0                    # requests底层
+requests==2.34.2                  # 部分SDK的HTTP客户端
+requests-toolbelt==1.0.0          # requests扩展
+certifi==2026.10.23               # CA证书
+charset-normalizer==3.5.2         # 编码探测
+idna==3.20                        # 国际化域名
+truststore==0.10.5                # 系统信任库
+
+# ---- 数据科学 / 数值计算（pymilvus/neo4j依赖） ----
+numpy==2.5.4                      # 向量计算
+pandas==3.1.1                     # 数据分析
+python-dateutil==4.0.0            # 日期解析（pandas依赖）
+pytz==2026.6                      # 时区库（pandas依赖）
+tzdata==2026.6                    # 时区数据
+grpcio==1.85.1                    # gRPC（pymilvus/neo4j通讯）
+protobuf==7.36.2                  # Protocol Buffers（gRPC消息）
+cachetools==7.2.8                 # 缓存工具
+xxhash==4.0.2                     # 快速哈希
+
+# ---- 加密 / 安全 ----
+cffi==2.1.1                       # C接口（argon2/pycryptodome底层）
+pycparser==3.12                   # C解析器（cffi依赖）
+argon2-cffi==25.1.0               # Argon2密码哈希（jupyter生态）
+argon2-cffi-bindings==26.1.0      # Argon2底层绑定
+pycryptodome==4.3.0               # 加密算法库
+
+# ---- 类型与工具 ----
+typing_extensions==4.16.0         # 类型扩展（pydantic2必需）
+typing-inspection==0.4.5          # 类型注解检查（pydantic2）
+annotated-types==0.8.0            # 注解类型（pydantic2）
+packaging==25.0                   # 版本解析
+click==8.5.0                      # CLI框架（uvicorn/tqdm）
+colorama==0.4.6                   # 控制台颜色（Windows）
+distro==1.9.0                     # 系统发行版探测
+jiter==0.18.0                     # 高性能JSON迭代器（openai依赖）
+tqdm==4.70.1                      # 进度条

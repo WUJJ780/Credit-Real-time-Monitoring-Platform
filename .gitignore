@@ -1,0 +1,33 @@
+# 环境与密钥
+.env.local
+.env
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# 训练模型产物（评分卡/机器学习模型文件，不入库）
+/models/
+*.pkl
+*.pmml
+*.onnx
+*.pt
+*.joblib
+
+# 运行产物
+logs/
+.data/
+output/
+
+# 离线依赖包（pip download产物）
+Credit_risk_control/
+
+# IDE
+.idea/
+.vscode/
+*.iml

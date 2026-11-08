@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>智能助手 · 信贷自动风控多Agent系统</title>
+  <link rel="stylesheet" href="/frontend/style.css">
+</head>
+<body class="app-shell chat-page">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main-area">
+  <header class="app-header" id="appHeader"></header>
+  <div class="chat-wrap">
+    <div class="chat-head">
+      <h1>🤖 信贷智能助手</h1>
+      <button class="badge link btn-plain" id="newSessionBtn">新对话</button>
+    </div>
+    <div class="chat-log" id="chatLog" aria-live="polite"></div>
+
+    <div class="chat-suggestions" id="suggestions"></div>
+
+    <div class="chat-hint" id="hintPill" role="status"></div>
+
+    <div class="chat-input-row">
+      <textarea id="chatInput" rows="1"
+                placeholder="描述您的需求，如：利率是多少？ / 我要补件 APP20260004 …（Enter发送，Shift+Enter换行）"></textarea>
+      <button class="primary-btn" id="sendBtn">发送</button>
+    </div>
+  </div>
+  </main>
+
+  <script src="/frontend/nav.js"></script>
+  <script src="/frontend/chat.js"></script>
+</body>
+</html>
